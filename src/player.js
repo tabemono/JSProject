@@ -41,13 +41,17 @@ class Player {
     //     this.vel.y += GRAVITY;
     //     }
     this.loc.add(this.vel);
-    this.vel.mult(0.8);
+    this.vel.x *= 0.8;
   };
 
   applyForce = (force) => {
     this.vel.add(force);
   };
 
+  jump = () => {
+    this.vel.y *= 0;
+    this.applyForce(0, -10);
+  }
   //   drawSprite(img, spriteX, spriteY, spriteW, spriteH, destX, destY, dW, dH) {
   //     context.drawImage(
   //       img,
