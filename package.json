@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "postcss.config.js",
-  "dependencies": {},
+  "dependencies": {
+    "serve": "^11.3.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
@@ -28,13 +30,13 @@
     "> 1%",
     "maintained node versions",
     "not dead"
-],
-"scripts": {
+  ],
+  "scripts": {
+    "serve": "serve ./",
     "start": "webpack-dev-server --config webpack.dev.js",
     "webpack:watch": "webpack --watch --config webpack.dev.js",
     "webpack:build": "webpack --config webpack.prod.js  --optimize-minimize"
-},
-
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tabemono/JSProject.git"
@@ -44,5 +46,6 @@
   "bugs": {
     "url": "https://github.com/tabemono/JSProject/issues"
   },
-  "homepage": "https://github.com/tabemono/JSProject#readme"
+  "homepage": "https://github.com/tabemono/JSProject#readme",
+  "type": "module"
 }
