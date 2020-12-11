@@ -36,10 +36,12 @@ function draw() {
     endGame();
   }
 
+  
+
   for (let i = 0; i < platforms.length; i++) {
     platforms[i].draw();
     if(platforms[i].collidesWith(player)) {
-      player.applyForce(0, -10);
+      player.jump();
     }
   }
   handleKeys();
@@ -66,6 +68,6 @@ function keyPressed() {
 
   if (keyCode == 32) {
     //jumpcode
-    player.applyForce(createVector(0, -35));
+    player.applyForce(createVector(0, -10));
   }
 }

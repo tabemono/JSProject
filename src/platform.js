@@ -15,12 +15,23 @@ class Platform  {
 
   collidesWith = (player) => {
     // console.log(this.y, player.loc.y);
-    if (this.y - player.y + player.size / 2 < 5 ) {
-      console.log('flag');
-      if(player.vel.y > 0) {
-        console.log('flag');
-        return true;
-      }
+    let pT = this.y; //platform 
+    let dB = (player.loc.y + player.size / 2);
+
+    stroke("#FF0000");
+    strokeWeight(10);
+  
+
+    if (Math.abs(pT - dB) < 5 &&  player.vel.y > 0) {
+      console.log('flag')
+        let lX = this.x; //lower bound x left
+        let rX = this.x + this.width; // right
+
+        let x = player.loc.x;
+        line(lX, pT, rX, pT);
+        if (x >= lX && x <=  rX ) {
+          return true;
+        }
     }
     return false;
   }
