@@ -1,52 +1,118 @@
-// import "./styles/index.scss";
+const GRAVITY = -0.6;
 
-var GRAVITY = 0.8;
 var player;
+var points;
 
 var platforms = [];
-// console.log("hello");
 
 function setup() {
   createCanvas(400, 600);
-  player = new Player(width / 2, height - 90, false, 30, color("red"));
 
-  //platform
-  // platforms.push(new Platform(player.loc.x ,player.loc.y + 50,00, color('gray')))
-  for (let dY = 0; dY < height; dY += 50) {
-    for (let i = 0; i < 3; i++) {
-  
-        let x = noise(i, dY) * width;
-        if (noise(dY, i) > 0.5)
-          platforms.push(new Platform(x, dY, 55, color("orange")));
-        // let y = noise(i * i) * height;
-      
-    }
-  }
+  player = new Player(width / 2, height / 2, false, 30, color("#FFF070"));
+
+  platforms = generatePlatforms();
+
+  points = 0;
+
+  frameRate(60);
 }
 
 function draw() {
-  background(52);
+  background(51);
 
-  player.update();
-  player.draw();
-  player.applyForce(createVector(0, GRAVITY));
+  handlePlayer();
 
-  if (player.loc.y > height) {
-    //end game
-    endGame();
-  }
+  handlePlatforms();
 
-  
+  drawScore();
 
-  for (let i = 0; i < platforms.length; i++) {
-    platforms[i].draw();
-    if(platforms[i].collidesWith(player)) {
-      player.jump();
-    }
-  }
   handleKeys();
 }
 
+/**
+ * updates, draws, and applies GRAVITY to player
+ * checks if the player falls
+ */
+function handlePlayer() {
+  player.update();
+  player.draw();
+
+  if (player.maxY + player.loc.y < -height / 2) {
+    /* end game */
+    endGame();
+  }
+}
+
+/**
+ * checks collision, draws, and manages all platforms
+ */
+function handlePlatforms() {
+  for (var i = platforms.length - 1; i >= 0; i--) {
+    // loop through platforms backward
+
+    if (platforms[i].onScreen) {
+      platforms[i].draw(player.loc.y);
+
+      if (platforms[i] instanceof Player) platforms[i].update(); // update Players
+
+      if (platforms[i].collidesWith(player)) {
+        player.jump();
+        if (platforms[i] instanceof Player) {
+          points += 100;
+          platforms.splice(i, 1); // remove from array
+        }
+      }
+    } else {
+      /* no longer on-screen, delete previous platforms */
+      platforms.splice(i, 1);
+
+      /* push new platform */
+      var x = noise(player.maxY, frameCount) * width;
+      var y = player.maxY + height;
+
+      if (random() < 0.9) {
+        // 90% chance of being a regular platform
+
+        platforms.push(new Platform(x, y, 55, color("#FF80F0")));
+      } else {
+        if (random() > 0.5) {
+          // 5% chance of being a player
+
+          platforms.push(new Player(x, y, true, 50, color("#00FFFF")));
+        }
+
+        // 5% chance of not regenerating
+      }
+    }
+  }
+}
+
+/**
+ * initializes platforms
+ */
+function generatePlatforms() {
+  var field = []; // returning array
+
+  for (var y = 0; y < height * 2; y += 40) {
+    // loop through Y
+
+    for (var i = 0; i < 3; i++) {
+      // attempt 3 new platforms
+
+      var x = noise(i, y) * width;
+
+      if (noise(y, i) > 0.5)
+        // 50% chance of a new platform
+        field.push(new Platform(x, y, 55, color("#FF80F0")));
+    }
+  }
+
+  return field;
+}
+
+/**
+ * moves player based upon user input
+ */
 function handleKeys() {
   if (keyIsDown(LEFT_ARROW)) {
     player.applyForce(-1, 0);
@@ -55,19 +121,27 @@ function handleKeys() {
   }
 }
 
+/**
+ * draws the score
+ */
+function drawScore() {
+  textSize(30);
+  textAlign(LEFT);
+  fill(255);
+  noStroke();
+  text((player.maxY + points).toFixed(0), 50, 50);
+}
+
+/**
+ * ends loop, draws game over message
+ */
 function endGame() {
   textAlign(CENTER);
-  noStroke();
   textSize(60);
-  fill("blue");
-  text("Game Over", width / 2, height / 2);
+  noStroke();
+  fill("#90FF90");
+  text("Game Over!", width / 2, height / 2);
+  location.reload();
 }
 
-function keyPressed() {
-  console.log(keyCode);
 
-  if (keyCode == 32) {
-    //jumpcode
-    player.applyForce(createVector(0, -10));
-  }
-}

@@ -1,78 +1,118 @@
-// const context = canvas.getContext("2d");
-// import { loadImage } from "./loaders.js";
-var sprite;
-// var runningAnimation;
-// var jumpingAnimation;
-// var gameBackground;
-// var platformBackground;
-// var gameFont;
-// var gameMusic;
-// var gameOverMusic;
+
 
 class Player {
-  constructor(x, y, enemy, size, color) {
-    this.loc = createVector(x, y);
-    this.vel = createVector(0, (!enemy) -20, 0);
-    this.color = color;
-    this.size = size;
-    this.enemy = enemy;
-    // this.height = 34;
-    // this.width = 37;
-    // this.frameX = 0;
-    // this.frameY = 0;
-    // sprite = createSprite(50, 100, 25, 40);
-    
-    // sprite.addAnimation('jump', jumpingAnimation);
-    // sprite.addAnimation('run', runningAnimation);
-    // sprite.setCollider('rectangle', 0, 0, 10,41);
-  }
 
 
-  preload = () => {
-    sprite = loadImage("./sprite.jpg");
-    
+  constructor(x, altitude, enemy, size, color) {
+  this.loc = createVector(x, altitude);
+  this.vel = createVector(0, 0);
 
-  };
+  this.maxY = altitude; // max altitude
+  this.premaxY = altitude; // previous max altitude
 
-  update = () => {
-    // if (this.enemy) {
+  this.force = 12;
 
-    //  } else {
-    //     this.vel.y += GRAVITY;
-    //     }
+  this.color = color;
+  this.size = size;
+
+  this.enemy = enemy; // enemy or not
+
+  this.drone = 0; // enemy Players drone across the screen
+
+  this.onScreen = true;
+}
+
+/**
+ * changes loc based upon vel
+ * moves enemy Players across the screen
+ */
+update =  () => {
+  if (this.enemy) {
+    // drone across the screen
+
+    this.drone += map(this.maxY, 0, 15000, 0.0001, 0.1);
+    this.loc.x = Math.sin(this.drone) * (width / 2) + width / 2;
+  } else {
+    /* change locationation based upon velocityocationity and add air resistance */
     this.loc.add(this.vel);
     this.vel.x *= 0.8;
-  };
 
-  applyForce = (force) => {
-    this.vel.add(force);
-  };
+    // apply GRAVITY
+    player.applyForce(createVector(0, GRAVITY));
 
-  jump = () => {
-    this.vel.y *= 0;
-    this.applyForce(0, -10);
+    // update maximum altitude
+    this.maxY = this.loc.y > this.maxY ? this.loc.y : this.maxY;
   }
-  //   drawSprite(img, spriteX, spriteY, spriteW, spriteH, destX, destY, dW, dH) {
-  //     context.drawImage(
-  //       img,
-  //       spriteX,
-  //       spriteY,
-  //       spriteW,
-  //       spriteH,
-  //       destX,
-  //       destY,
-  //       dW,
-  //       dH
-  //     );
-  //   }
+};
 
-  draw = () => {
-    // const playerImg = new Image()
-    // playerImg.src = './assets/images/player.png';
-    // image(sprite, this.loc.x, this.loc.y);
-    drawSprites(sprite);
-    strokeWeight(3);
-    fill(this.color);
-    ellipse(this.loc.x, this.loc.y, this.size);
-  };
+/**
+ * sets velocityocationity to mimic a hop
+ */
+jump =  () => {
+  this.vel.y *= 0;
+
+  if (this.premaxY == this.maxY) {
+    // stronger hop as the altitude remains constant
+
+    this.force = constrain(this.force + 1, 12, 16);
+  } else {
+    this.force = 12;
+  }
+
+  this.applyForce(createVector(0, this.force));
+
+  this.premaxY = this.maxY;
+};
+
+/**
+ * adds force to the velocityocationity
+ */
+applyForce =  (force) => {
+  this.vel.add(force);
+};
+
+/**
+ * returns whether or not the player collides with another player
+ */
+collidesWith = (player) => {
+  var distance = dist(player.loc.x, player.loc.y, this.loc.x, this.loc.y);
+
+  if (distance < this.size / 2 + player.size / 2) {
+    // distance is greater than radii combined
+
+    if (player.loc.y < this.loc.y) {
+      // underneath player
+
+      endGame();
+      return false;
+    } else {
+      return true;
+    }
+  }
+};
+
+/**
+ * draws the player with specific altitiude translation
+ */
+draw =  (altitude) => {
+  stroke(255);
+  strokeWeight(3);
+  fill(this.color);
+
+  if (this.enemy) {
+    // draw relative to platforms
+
+    if (altitude - this.loc.y < height) {
+      // if it is on-screen
+
+      ellipse(this.loc.x, altitude - this.loc.y + height / 2, this.size);
+    } else {
+      this.onScreen = false;
+    }
+  } else {
+    // draw regularly
+
+    ellipse(this.loc.x, height / 2, this.size);
+  }
+};
 }
