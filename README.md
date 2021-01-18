@@ -21,3 +21,8 @@ This javascript app will be a canvas styled game where the user will play as a c
 -Javascript
 -Canvas
 -Webpack & Babel 
+
+
+# Future implementations
+
+-add sprites and music
