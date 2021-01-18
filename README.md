@@ -13,8 +13,7 @@ This javascript app will be a canvas styled game where the user will play as a c
 - have each level with obstacles that shoot projeciles from the side
 -scalable canvas levels that goes up
 
-# Wireframe
--animation loops
+
 
 # Architexture and Technology
 
