@@ -1,7 +1,7 @@
 # JSProject
 
 Link to Project
-https://tabemono.github.io/Dont-Fall/
+https://tabemono.github.io/Just-Jump/
 
 # Background and Overview
 
