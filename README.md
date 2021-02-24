@@ -20,6 +20,7 @@ This javascript app will be a canvas styled game where the user will play as a c
 -Javascript
 -Canvas
 -Webpack & Babel 
+-p5 library
 
 
 # Future implementations
