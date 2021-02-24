@@ -70,7 +70,7 @@ function handlePlatforms() {
       var x = noise(player.maxY, frameCount) * width;
       var y = player.maxY + height;
 
-      if (random() < 0.85) {
+      if (random() < 0.9) {
         // 85% chance of being a regular platform
 
         platforms.push(new Platform(x, y, 55, color("#FF80F0")));
