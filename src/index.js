@@ -70,13 +70,13 @@ function handlePlatforms() {
       var x = noise(player.maxY, frameCount) * width;
       var y = player.maxY + height;
 
-      if (random() < 0.9) {
-        // 90% chance of being a regular platform
+      if (random() < 0.85) {
+        // 85% chance of being a regular platform
 
         platforms.push(new Platform(x, y, 55, color("#FF80F0")));
       } else {
-        if (random() > 0.5) {
-          // 5% chance of being a player
+        if (random() > 0.1) {
+          // 10% chance of being a player
 
           platforms.push(new Player(x, y, true, 50, color("#00FFFF")));
         }
@@ -122,7 +122,7 @@ function handleKeys() {
 }
 
 /**
- * draws the score
+ * scoreboard
  */
 function drawScore() {
   textSize(30);
@@ -141,7 +141,5 @@ function endGame() {
   noStroke();
   fill("#90FF90");
   text("Game Over!", width / 2, height / 2);
-  location.reload();
+  setup();
 }
-
-
