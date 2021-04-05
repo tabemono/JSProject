@@ -1,9 +1,9 @@
 const GRAVITY = -0.6;
 
-var player;
-var points;
+let player;
+let points;
 
-var platforms = [];
+let platforms = [];
 
 function setup() {
   createCanvas(400, 600);
