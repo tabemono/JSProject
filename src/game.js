@@ -4,9 +4,10 @@ let player;
 let points;
 let gameOver;
 let platforms = [];
-let button;
+
 function setup() {
   gameOver = false;
+  loop();
   createCanvas(400, 600);
   player = new Player(width / 2, height / 2, false, 30, color("#FFF070"));
 
@@ -70,12 +71,12 @@ function handlePlatforms() {
       let y = player.maxY + height;
 
       if (random() < 0.9) {
-        // 85% chance of being a regular platform
+        // 90% chance of being a regular platform
 
         platforms.push(new Platform(x, y, 55, color("#FF80F0")));
       } else {
-        if (random() > 0.15) {
-          // 15% chance of being a player
+        if (random() > 0.55) {
+          // 5% chance of being a player
 
           platforms.push(new Player(x, y, true, 50, color("#00FFFF")));
         }
@@ -117,21 +118,25 @@ function handleKeys() {
     player.applyForce(-1, 0);
   } else if (keyIsDown(RIGHT_ARROW)) {
     player.applyForce(1, 0);
-  } else if (gameOver && keyIsDown(32)) {
+  }
+}
+
+// function restart() {
+//   if (gameOver) {
+//     // loop();
+//     if (keyIsDown(32)) {
+//       // loop();
+//       setup();
+//     }
+//   }
+// }
+
+document.body.onkeyup = function (e) {
+  if (gameOver && e.keyCode == 32) {
     loop();
     setup();
   }
-}
-
-function restart() {
-  if (gameOver) {
-    loop();
-    if (keyIsDown(32)) {
-      setup();
-    }
-  }
-}
-
+};
 /**
  * scoreboard
  */
@@ -161,5 +166,5 @@ function endGame() {
   text("Press Space to Retry", width / 2, height / 3);
 
   noLoop();
-  restart();
+  // restart();
 }
