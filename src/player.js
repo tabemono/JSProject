@@ -71,13 +71,16 @@ class Player {
    * returns whether or not the player collides with another player
    */
   collidesWith = (player) => {
-    var distance = dist(player.loc.x, player.loc.y, this.loc.x, this.loc.y);
+    let distance = dist(player.loc.x, player.loc.y, this.loc.x, this.loc.y);
 
     if (distance < this.size / 2 + player.size / 2) {
+      // distance is greater than radius combined
+
       if (player.loc.y < this.loc.y) {
         // underneath player
 
         endGame();
+        
         return false;
       } else {
         return true;

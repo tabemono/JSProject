@@ -2,18 +2,17 @@ const GRAVITY = -0.6;
 
 let player;
 let points;
-
+let gameOver;
 let platforms = [];
-
+let button;
 function setup() {
+  gameOver = false;
   createCanvas(400, 600);
-
   player = new Player(width / 2, height / 2, false, 30, color("#FFF070"));
 
   platforms = generatePlatforms();
 
   points = 0;
-
   frameRate(60);
 }
 
@@ -47,7 +46,7 @@ function handlePlayer() {
  * checks collision, draws, and manages all platforms
  */
 function handlePlatforms() {
-  for (var i = platforms.length - 1; i >= 0; i--) {
+  for (let i = platforms.length - 1; i >= 0; i--) {
     // loop through platforms backward
 
     if (platforms[i].onScreen) {
@@ -67,16 +66,16 @@ function handlePlatforms() {
       platforms.splice(i, 1);
 
       /* push new platform */
-      var x = noise(player.maxY, frameCount) * width;
-      var y = player.maxY + height;
+      let x = noise(player.maxY, frameCount) * width;
+      let y = player.maxY + height;
 
       if (random() < 0.9) {
         // 85% chance of being a regular platform
 
         platforms.push(new Platform(x, y, 55, color("#FF80F0")));
       } else {
-        if (random() > 0.1) {
-          // 10% chance of being a player
+        if (random() > 0.15) {
+          // 15% chance of being a player
 
           platforms.push(new Player(x, y, true, 50, color("#00FFFF")));
         }
@@ -91,15 +90,15 @@ function handlePlatforms() {
  * initializes platforms
  */
 function generatePlatforms() {
-  var field = []; // returning array
+  let field = []; // returning array
 
-  for (var y = 0; y < height * 2; y += 40) {
+  for (let y = 0; y < height * 2; y += 40) {
     // loop through Y
 
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       // attempt 3 new platforms
 
-      var x = noise(i, y) * width;
+      let x = noise(i, y) * width;
 
       if (noise(y, i) > 0.5)
         // 50% chance of a new platform
@@ -118,6 +117,18 @@ function handleKeys() {
     player.applyForce(-1, 0);
   } else if (keyIsDown(RIGHT_ARROW)) {
     player.applyForce(1, 0);
+  } else if (gameOver && keyIsDown(32)) {
+    loop();
+    setup();
+  }
+}
+
+function restart() {
+  if (gameOver) {
+    loop();
+    if (keyIsDown(32)) {
+      setup();
+    }
   }
 }
 
@@ -136,10 +147,19 @@ function drawScore() {
  * ends loop, draws game over message
  */
 function endGame() {
-  textAlign(CENTER);
-  textSize(60);
+  textAlign(CENTER, CENTER);
+
+  gameOver = true;
+  textSize(35);
   noStroke();
   fill("#90FF90");
-  text("Game Over!", width / 2, height / 2);
-  setup();
+  background(51);
+  text("Game Over!", width / 2, height / 6);
+
+  fill(0, 130, 153);
+  text("Play Again?", width / 2, height / 2);
+  text("Press Space to Retry", width / 2, height / 3);
+
+  noLoop();
+  restart();
 }
