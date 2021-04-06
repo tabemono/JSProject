@@ -9,7 +9,7 @@ function setup() {
   gameOver = false;
   loop();
   createCanvas(400, 600);
-  player = new Player(width / 2, height / 2, false, 30, color("#FFF070"));
+  player = new Player(width / 2, height / 2, false, 30, color("#c23838"));
 
   platforms = generatePlatforms();
 
@@ -73,12 +73,12 @@ function handlePlatforms() {
       if (random() < 0.9) {
         // 90% chance of being a regular platform
 
-        platforms.push(new Platform(x, y, 55, color("#FF80F0")));
+        platforms.push(new Platform(x, y, 55, color("white")));
       } else {
         if (random() > 0.55) {
           // 5% chance of being a player
 
-          platforms.push(new Player(x, y, true, 50, color("#00FFFF")));
+          platforms.push(new Player(x, y, true, 50, color("#FF0400")));
         }
 
         // 5% chance of not regenerating
@@ -103,7 +103,7 @@ function generatePlatforms() {
 
       if (noise(y, i) > 0.5)
         // 50% chance of a new platform
-        field.push(new Platform(x, y, 55, color("#FF80F0")));
+        field.push(new Platform(x, y, 55, color("beige")));
     }
   }
 
@@ -143,7 +143,7 @@ document.body.onkeyup = function (e) {
 function drawScore() {
   textSize(30);
   textAlign(LEFT);
-  fill(255);
+  fill(245);
   noStroke();
   text((player.maxY + points).toFixed(0), 50, 50);
 }

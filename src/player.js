@@ -11,7 +11,7 @@ class Player {
     this.color = color;
     this.size = size;
 
-    this.enemy = enemy; // enemy or not
+    this.enemy = enemy; // enemy drone or not
 
     this.drone = 0; // enemy Players drone across the screen
 
@@ -80,7 +80,7 @@ class Player {
         // underneath player
 
         endGame();
-        
+
         return false;
       } else {
         return true;
@@ -92,7 +92,7 @@ class Player {
    * draws the player with specific altitiude translation
    */
   draw = (altitude) => {
-    stroke(255);
+    stroke("red");
     strokeWeight(3);
     fill(this.color);
 

@@ -13,7 +13,7 @@ class Platform {
    * draws platform at altitude
    */
   draw = (altitude) => {
-    stroke(255);
+    stroke("rgb(100%,0%,10%)");
     strokeWeight(3);
     fill(this.color);
 
@@ -34,7 +34,7 @@ class Platform {
     let platformTop = this.altitude;
     let playerBottom = player.loc.y - player.size / 2;
 
-    stroke("#FF0000");
+    stroke("#c23838");
     strokeWeight(10);
 
     if (
