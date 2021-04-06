@@ -13,7 +13,7 @@ Simple p5 javascript canvas game where you keep climbing up while dodging projec
 
 # Code Snippet
 
-Collision
+# -Collision
   collidesWith = (player) => {
     let platformTop = this.altitude;
     let playerBottom = player.loc.y - player.size / 2;
