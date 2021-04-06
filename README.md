@@ -18,9 +18,6 @@ Simple p5 javascript canvas game where you keep climbing up while dodging projec
     let platformTop = this.altitude;
     let playerBottom = player.loc.y - player.size / 2;
 
-    stroke("#c23838");
-    strokeWeight(10);
-
     if (
       Math.abs(platformTop - playerBottom) < -player.vel.y &&
       platformTop < playerBottom
