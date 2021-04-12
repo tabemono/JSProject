@@ -11,8 +11,6 @@ https://tabemono.github.io/Just-Jump/
 Simple p5 javascript canvas game where you keep climbing up while dodging projectiles.
 
 
-# Code Snippet
-
 # -Collision
   collidesWith = (player) => {
     let platformTop = this.altitude;
@@ -57,5 +55,4 @@ Simple p5 javascript canvas game where you keep climbing up while dodging projec
 
 
 # Future implementations
-
--add sprites and music
+* Add more styling with sprites and music
