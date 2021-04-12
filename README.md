@@ -1,4 +1,4 @@
-# JSProject
+# Just Jump
 
 Link to Project
 https://tabemono.github.io/Just-Jump/
