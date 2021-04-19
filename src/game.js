@@ -141,11 +141,11 @@ document.body.onkeyup = function (e) {
  * scoreboard
  */
 function drawScore() {
-  textSize(30);
+  textSize(25);
   textAlign(LEFT);
   fill(245);
   noStroke();
-  text((player.maxY + points).toFixed(0), 50, 50);
+  text("Score: " + (player.maxY + points).toFixed(0), 30, 50);
 }
 
 /**
@@ -157,12 +157,12 @@ function endGame() {
   gameOver = true;
   textSize(35);
   noStroke();
-  fill("#90FF90");
+  fill("white");
   background(51);
   text("Game Over!", width / 2, height / 6);
 
-  fill(0, 130, 153);
-  text("Play Again?", width / 2, height / 2);
+  fill("red");
+  // text("Play Again?", width / 2, height / 2);
   text("Press Space to Retry", width / 2, height / 3);
 
   noLoop();
