@@ -13,8 +13,20 @@
   justify-content: center;
   display: flex;
   letter-spacing: 20px;
-  font-size: 40px;
+
   font-family: Ubuntu;
 }
 
+#personal-social {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  letter-spacing: 15px;
+  font-size: 35px;
+  transition: 0.3s linear;
+  margin-top: 10px;
+}
 
+#personal-social i {
+  font-size: 50px;
+}
