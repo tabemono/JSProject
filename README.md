@@ -1,7 +1,7 @@
 # Just Jump
 
 Link to Project
-https://tabemono.github.io/Just-Jump/
+https://tabemono.github.io/Just-Bounce/
 
 
 
