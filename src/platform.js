@@ -13,7 +13,8 @@ class Platform {
    * draws platform at altitude
    */
   draw = (altitude) => {
-    stroke("rgb(100%,0%,10%)");
+    // stroke("rgb(100%,0%,10%)");
+    stroke("black")
     strokeWeight(3);
     fill(this.color);
 
