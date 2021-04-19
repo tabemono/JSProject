@@ -143,7 +143,7 @@ document.body.onkeyup = function (e) {
 function drawScore() {
   textSize(25);
   textAlign(LEFT);
-  fill(245);
+  fill("red");
   noStroke();
   text("Score: " + (player.maxY + points).toFixed(0), 30, 50);
 }
