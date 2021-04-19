@@ -2,8 +2,10 @@
   font-size: 25px;
   position: absolute;
   margin-top: 10%;
+  margin-left: 15%;
   font-family: Ubuntu;
   border-color: black;
+  color: white;
 }
 
 #top {
