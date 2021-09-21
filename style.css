@@ -2,4 +2,33 @@
   font-size: 25px;
   position: absolute;
   margin-top: 10%;
+  margin-left: 10%;
+  font-family: Ubuntu;
+  border-color: black;
+  color: white;
+}
+
+#top {
+  font-size: 30px;
+  color: red;
+
+  justify-content: center;
+  display: flex;
+  letter-spacing: 20px;
+
+  font-family: Ubuntu;
+}
+
+#personal-social {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  letter-spacing: 15px;
+  font-size: 35px;
+  transition: 0.3s linear;
+  margin-top: 10px;
+}
+
+#personal-social i {
+  font-size: 50px;
 }

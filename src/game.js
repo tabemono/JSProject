@@ -1,19 +1,19 @@
 const GRAVITY = -0.6;
 
-var player;
-var points;
-
-var platforms = [];
+let player;
+let points;
+let gameOver;
+let platforms = [];
 
 function setup() {
+  gameOver = false;
+  loop();
   createCanvas(400, 600);
-
-  player = new Player(width / 2, height / 2, false, 30, color("#FFF070"));
+  player = new Player(width / 2, height / 2, false, 30, color("#c23838"));
 
   platforms = generatePlatforms();
 
   points = 0;
-
   frameRate(60);
 }
 
@@ -47,7 +47,7 @@ function handlePlayer() {
  * checks collision, draws, and manages all platforms
  */
 function handlePlatforms() {
-  for (var i = platforms.length - 1; i >= 0; i--) {
+  for (let i = platforms.length - 1; i >= 0; i--) {
     // loop through platforms backward
 
     if (platforms[i].onScreen) {
@@ -67,18 +67,18 @@ function handlePlatforms() {
       platforms.splice(i, 1);
 
       /* push new platform */
-      var x = noise(player.maxY, frameCount) * width;
-      var y = player.maxY + height;
+      let x = noise(player.maxY, frameCount) * width;
+      let y = player.maxY + height;
 
-      if (random() < 0.9) {
-        // 90% chance of being a regular platform
+      if (random() < 0.92) {
+        // 95% chance of being a regular platform
 
-        platforms.push(new Platform(x, y, 55, color("#FF80F0")));
+        platforms.push(new Platform(x, y, 55, color("white")));
       } else {
-        if (random() > 0.5) {
+        if (random() > 0.55) {
           // 5% chance of being a player
 
-          platforms.push(new Player(x, y, true, 50, color("#00FFFF")));
+          platforms.push(new Player(x, y, true, 50, color("#FF0400")));
         }
 
         // 5% chance of not regenerating
@@ -91,19 +91,19 @@ function handlePlatforms() {
  * initializes platforms
  */
 function generatePlatforms() {
-  var field = []; // returning array
+  let field = []; // returning array
 
-  for (var y = 0; y < height * 2; y += 40) {
+  for (let y = 0; y < height * 2; y += 40) {
     // loop through Y
 
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       // attempt 3 new platforms
 
-      var x = noise(i, y) * width;
+      let x = noise(i, y) * width;
 
       if (noise(y, i) > 0.5)
         // 50% chance of a new platform
-        field.push(new Platform(x, y, 55, color("#FF80F0")));
+        field.push(new Platform(x, y, 55, color("beige")));
     }
   }
 
@@ -121,27 +121,50 @@ function handleKeys() {
   }
 }
 
+// function restart() {
+//   if (gameOver) {
+//     // loop();
+//     if (keyIsDown(32)) {
+//       // loop();
+//       setup();
+//     }
+//   }
+// }
+
+document.body.onkeyup = function (e) {
+  if (gameOver && e.keyCode == 32) {
+    loop();
+    setup();
+  }
+};
 /**
- * draws the score
+ * scoreboard
  */
 function drawScore() {
-  textSize(30);
+  textSize(25);
   textAlign(LEFT);
-  fill(255);
+  fill("red");
   noStroke();
-  text((player.maxY + points).toFixed(0), 50, 50);
+  text("Score: " + (player.maxY + points).toFixed(0), 30, 50);
 }
 
 /**
  * ends loop, draws game over message
  */
 function endGame() {
-  textAlign(CENTER);
-  textSize(60);
+  textAlign(CENTER, CENTER);
+
+  gameOver = true;
+  textSize(35);
   noStroke();
-  fill("#90FF90");
-  text("Game Over!", width / 2, height / 2);
-  location.reload();
+  fill("white");
+  background(51);
+  text("Game Over!", width / 2, height / 6);
+
+  fill("red");
+  // text("Play Again?", width / 2, height / 2);
+  text("Press Space to Retry", width / 2, height / 3);
+
+  noLoop();
+  // restart();
 }
-
-

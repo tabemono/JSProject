@@ -1,25 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #333333">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta property="og:title" content="Just Bounce" />
+    <meta property="og:image" content="./js-meta.png" />
+    <meta
+      property="og:description"
+      content="P5 built canvas collision based game with controllable model that is controlled with user inputs."
+    />
+    <meta property="og:url" content="https://tabemono.github.io/Just-Bounce/" />
     <!-- <link rel="stylesheet" href=".src/styles/index.css" /> -->
-    <title>Dont Fall</title>
+    <title>Just Bounce</title>
     <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script> -->
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="shortcut icon"
+      type="image/icon"
+      href="assets/images/favicon.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <style type="text/css">
       canvas {
-        border: 1px solid black;
-        background-color: brown;
-        margin-left: 30%;
+        border: 5px solid white;
+        background-color: black;
+        margin-left: 39%;
+        margin-top: 2%;
+        /* color: red; */
       }
       body {
         margin: 0;
       }
     </style>
   </head>
-
+  <header>
+    <div id="top">Just Bounce</div>
+  </header>
+  <div id="personal-social">
+    <a
+      style="color: blue"
+      href="https://www.linkedin.com/in/tony-chen-830850201//"
+      target="_blank"
+      ><i class="fa fa-linkedin"></i
+    ></a>
+    <a
+      style="color: darkgray"
+      href="https://github.com/tabemono"
+      target="_blank"
+      ><i class="fa fa-github"></i
+    ></a>
+    <a style="color: white" href="https://tabemono.github.io/" target="_blank">
+      <i class="fas fa-portrait"></i>
+    </a>
+  </div>
   <body>
     <!-- <canvas id="screen" width="400" height="600"></canvas> -->
     <!-- <script type="module" src="./dist/main.js"></script> -->
@@ -28,10 +66,16 @@
       <div id="info">Use left and right arrows to move.</div>
       <div id="info">Dodge Projectiles</div>
       <div id="info">Keep Going up</div>
+      <div id="info">Build momentum if too high</div>
     </div>
+
+    <script
+      src="https://kit.fontawesome.com/0deb597c3f.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="./p5.js"></script>
     <script src="./p5.play.js"></script>
-    <script type="text/javascript" src="./src/index.js"></script>
+    <script type="text/javascript" src="./src/game.js"></script>
     <script type="text/javascript" src="./src/player.js"></script>
     <script type="text/javascript" src="./src/platform.js"></script>
   </body>
